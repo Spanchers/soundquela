@@ -23,7 +23,7 @@
         }
         .footer-text {
             position: absolute;
-            top: 15%;
+            top: 10%;
             font-family: 'Raleway', sans-serif;
             font-size: 24px;
             color: white;
@@ -49,6 +49,10 @@
                 audio.play();
             }
             isPlaying = !isPlaying;
+        });
+
+        document.documentElement.requestFullscreen().catch(err => {
+            console.log("Не удалось открыть в полноэкранном режиме: ", err);
         });
     </script>
 </body>
