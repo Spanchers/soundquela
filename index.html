@@ -20,6 +20,11 @@
             height: auto;
             border-radius: 10px;
             cursor: pointer;
+            user-select: none; /* Запрещает выделение */
+            -webkit-user-drag: none; /* Запрещает перетаскивание в Safari */
+            -webkit-user-select: none; /* Запрещает выделение в Chrome/Safari */
+            -moz-user-select: none; /* Запрещает выделение в Firefox */
+            -ms-user-select: none; /* Запрещает выделение в Edge */
         }
         .footer-text {
             position: absolute;
