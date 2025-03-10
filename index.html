@@ -14,18 +14,18 @@
             background: linear-gradient(135deg, #1a1a1a, #4a4a4a);
             flex-direction: column;
             position: relative;
-            user-select: none; /* Запрещает выделение для всей страницы */
+            user-select: none;
         }
         img {
             width: 300px;
             height: auto;
             border-radius: 10px;
             cursor: pointer;
-            user-select: none; /* Запрещает выделение */
-            -webkit-user-drag: none; /* Запрещает перетаскивание в Safari */
-            -webkit-user-select: none; /* Запрещает выделение в Chrome/Safari */
-            -moz-user-select: none; /* Запрещает выделение в Firefox */
-            -ms-user-select: none; /* Запрещает выделение в Edge */
+            user-select: none;
+            -webkit-user-drag: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
         .footer-text {
             position: absolute;
@@ -44,21 +44,36 @@
         <source src="siiat.mp3" type="audio/mpeg">
     </audio>
     <script>
-        const audio = document.getElementById('audio');
-        const playImage = document.getElementById('playImage');
-        let isPlaying = false;
+        document.addEventListener("DOMContentLoaded", () => {
+            const audio = document.getElementById("audio");
+            const playImage = document.getElementById("playImage");
+            let isPlaying = false;
 
-        playImage.addEventListener('click', () => {
-            if (isPlaying) {
-                audio.pause();
-            } else {
-                audio.play();
-            }
-            isPlaying = !isPlaying;
-        });
+            // Функция для попытки воспроизведения аудио
+            const playAudio = () => {
+                audio.play().catch(error => {
+                    console.log("Автовоспроизведение заблокировано браузером:", error);
+                });
+            };
 
-        document.documentElement.requestFullscreen().catch(err => {
-            console.log("Не удалось открыть в полноэкранном режиме: ", err);
+            // Попытка автозапуска
+            playAudio();
+
+            // Включение звука при первом клике
+            document.addEventListener("click", playAudio, { once: true });
+
+            playImage.addEventListener("click", () => {
+                if (isPlaying) {
+                    audio.pause();
+                } else {
+                    audio.play();
+                }
+                isPlaying = !isPlaying;
+            });
+
+            document.documentElement.requestFullscreen().catch(err => {
+                console.log("Не удалось открыть в полноэкранном режиме: ", err);
+            });
         });
     </script>
 </body>
