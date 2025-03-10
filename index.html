@@ -49,18 +49,13 @@
             const playImage = document.getElementById("playImage");
             let isPlaying = false;
 
-            // Функция для попытки воспроизведения аудио
             const playAudio = () => {
                 audio.play().catch(error => {
-                    console.log("Автовоспроизведение заблокировано браузером:", error);
+                    document.addEventListener("click", playAudio, { once: true });
                 });
             };
 
-            // Попытка автозапуска
             playAudio();
-
-            // Включение звука при первом клике
-            document.addEventListener("click", playAudio, { once: true });
 
             playImage.addEventListener("click", () => {
                 if (isPlaying) {
@@ -69,10 +64,6 @@
                     audio.play();
                 }
                 isPlaying = !isPlaying;
-            });
-
-            document.documentElement.requestFullscreen().catch(err => {
-                console.log("Не удалось открыть в полноэкранном режиме: ", err);
             });
         });
     </script>
